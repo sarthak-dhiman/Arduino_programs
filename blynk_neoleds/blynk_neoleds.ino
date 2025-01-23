@@ -6,12 +6,12 @@
 #define LED_TYPE    WS2812B
 #define COLOR_ORDER GRB
 CRGB leds1[NUM_LEDS1];
-char auth[] = "gAoFISx7KQ06T3AlG2rXuCHTN-ZvHvi-";
+char auth[] = "****";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "Sarthy";
-char pass[] = "BadheraBajwara#21";
+char ssid[] = "****";
+char pass[] = "***";
 #define PIN1 D1
 int data=255;
 int r,g,b;

@@ -1,4 +1,4 @@
-//  8 Channel Receiver | 8 Kanal Alıcı
+//  8 Channel Receiver 
 
 #include <SPI.h>
 #include <nRF24L01.h>
@@ -47,7 +47,7 @@ data.throttle = 0;
 data.roll = 127;
 data.pitch = 127;
 data.yaw = 127;
-data.aux1 = 0;                                              // Define the inicial value of each data input. | Veri girişlerinin başlangıç değerleri
+data.aux1 = 0;                                              // Define the inicial value of each data input.
 data.aux2 = 0;
 data.aux3 = 0;
 data.aux4 = 0;                                                     
@@ -55,7 +55,7 @@ data.aux4 = 0;
 
 void setup()
 {
-                                                           // Set the pins for each PWM signal | Her bir PWM sinyal için pinler belirleniyor.
+                                                           // Set the pins for each PWM signal
   ch1.attach(0);
   ch2.attach(2);
   ch3.attach(3);
@@ -65,13 +65,13 @@ void setup()
   ch7.attach(7);
   ch8.attach(8);
                                                            
-  ResetData();                                             // Configure the NRF24 module  | NRF24 Modül konfigürasyonu
+  ResetData();                                             // Configure the NRF24 module  
   radio.begin();
   radio.openReadingPipe(1,pipeIn);
   radio.setAutoAck(false);
-  radio.setDataRate(RF24_250KBPS);                          // The lowest data rate value for more stable communication  | Daha kararlı iletişim için en düşük veri hızı.
-  radio.setPALevel(RF24_PA_MAX);                            // Output power is set for maximum |  Çıkış gücü maksimum için ayarlanıyor.
-  radio.startListening();                                   // Start the radio comunication for receiver | Alıcı için sinyal iletişimini başlatır.
+  radio.setDataRate(RF24_250KBPS);                          // The lowest data rate value for more stable communication  
+  radio.setPALevel(RF24_PA_MAX);                            // Output power is set for maximum 
+  radio.startListening();                                   // Start the radio comunication for receiver 
 
 }
 
@@ -81,7 +81,7 @@ void recvData()
 {
 while ( radio.available() ) {
 radio.read(&data, sizeof(Signal));
-lastRecvTime = millis();                                    // Receive the data | Data alınıyor
+lastRecvTime = millis();                                    // Receive the data 
 }
 }
 
@@ -90,7 +90,7 @@ void loop()
 recvData();
 unsigned long now = millis();
 if ( now - lastRecvTime > 1000 ) {
-ResetData();                                                // Signal lost.. Reset data | Sinyal kayıpsa data resetleniyor
+ResetData();                                                // Signal lost.. Reset data 
 }
 
 ch_width_1 = map(data.roll, 0, 255, 1000, 2000);
@@ -103,7 +103,7 @@ ch_width_7 = map(data.aux3, 0, 1, 1000, 2000);
 ch_width_8 = map(data.aux4, 0, 1, 1000, 2000); 
 
 
-ch1.writeMicroseconds(ch_width_1);                          // Write the PWM signal | PWM sinyaller çıkışlara gönderiliyor
+ch1.writeMicroseconds(ch_width_1);                          // Write the PWM signal 
 ch2.writeMicroseconds(ch_width_2);
 ch3.writeMicroseconds(ch_width_3);
 ch4.writeMicroseconds(ch_width_4);

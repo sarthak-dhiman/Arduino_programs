@@ -1,7 +1,7 @@
 
 
-//  6 Channel Receiver | 6 Kanal Alıcı
-//  PWM output on pins D2, D3, D4, D5, D6, D7 (Çıkış pinleri)
+//  6 Channel Receiver 
+//  PWM output on pins D2, D3, D4, D5, D6, D7 
 
 #include <SPI.h>
 #include <nRF24L01.h>
@@ -38,19 +38,19 @@ RF24 radio(9, 10);
 
 void ResetData()
 {
-// Define the inicial value of each data input. | Veri girişlerinin başlangıç değerleri
-// The middle position for Potenciometers. (254/2=127) | Potansiyometreler için orta konum
-data.roll = 127;   // Center | Merkez
-data.pitch = 127;  // Center | Merkez
-data.throttle = 12; // Motor Stop | Motor Kapalı
-data.yaw = 127;   // Center | Merkez
-data.aux1 = 127;   // Center | Merkez
-data.aux2 = 127;   // Center | Merkez
+// Define the inicial value of each data input. 
+// The middle position for Potenciometers. (254/2=127) 
+data.roll = 127;   // Center
+data.pitch = 127;  // Center 
+data.throttle = 12; // Motor Stop 
+data.yaw = 127;   // Center
+data.aux1 = 127;   // Center 
+data.aux2 = 127;   // Center 
 }
 
 void setup()
 {
-  //Set the pins for each PWM signal | Her bir PWM sinyal için pinler belirleniyor.
+  //Set the pins for each PWM signal 
   ch1.attach(2);
   ch2.attach(3);
   ch3.attach(4);
@@ -65,8 +65,7 @@ void setup()
   radio.setAutoAck(false);
   radio.setDataRate(RF24_250KBPS);
   radio.setPALevel(RF24_PA_HIGH);
-  radio.startListening(); //start the radio comunication for receiver | Alıcı olarak sinyal iletişimi başlatılıyor
-
+  radio.startListening(); //start the radio comunication for receiver 
   pinMode(13,OUTPUT);
 
 }
@@ -77,7 +76,7 @@ void recvData()
 {
 while ( radio.available() ) {
 radio.read(&data, sizeof(Signal));
-lastRecvTime = millis();   // receive the data | data alınıyor
+lastRecvTime = millis();   // receive the data 
 }
 }
 
@@ -86,7 +85,7 @@ void loop()
 recvData();
 unsigned long now = millis();
 if ( now - lastRecvTime > 1000 ) {
-ResetData(); // Signal lost.. Reset data | Sinyal kayıpsa data resetleniyor
+ResetData(); // Signal lost.. Reset data 
 }
 
 ch_width_4 = map(data.yaw,      0, 255, 1000, 2000);     // pin D5 (PWM signal)
@@ -97,7 +96,7 @@ ch_width_1 = map(data.roll,     0, 255, 1000, 2000);     // pin D2 (PWM signal)
 ch_width_5 = map(data.aux1,     0, 255, 1000, 2000);     // pin D6 (PWM signal)
 ch_width_6 = map(data.aux2,     0, 255, 1000, 2000);     // pin D7 (PWM signal)
 
-// Write the PWM signal | PWM sinyaller çıkışlara gönderiliyor
+// Write the PWM signal
 ch1.writeMicroseconds(ch_width_1);
 ch2.writeMicroseconds(ch_width_2);
 ch3.writeMicroseconds(ch_width_3);

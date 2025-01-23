@@ -1,9 +1,9 @@
-// 6 Channel Transmitter | 6 Kanal Verici
+// 6 Channel Transmitter 
   #include <SPI.h>
   #include <nRF24L01.h>
   #include <RF24.h>
-  const uint64_t pipeOut = 0xE9E8F0F0E1LL;   //IMPORTANT: The same as in the receiver 0xE9E8F0F0E1LL | Bu adres alıcı ile aynı olmalı
-  RF24 radio(9, 10); // select CE,CSN pin | CE ve CSN pinlerin seçimi
+  const uint64_t pipeOut = 0xE9E8F0F0E1LL;   //IMPORTANT: The same as in the receiver 0xE9E8F0F0E1LL
+  RF24 radio(9, 10); // select CE,CSN pin 
   struct Signal {
   byte throttle;
   byte pitch;
@@ -15,13 +15,12 @@
   Signal data;
   void ResetData() 
 {
-  data.throttle = 12;   // Motor stop | Motor Kapalı (Signal lost position | sinyal kesildiğindeki pozisyon)
-  data.pitch = 127;    // Center | Merkez (Signal lost position | sinyal kesildiğindeki pozisyon)
-  data.roll = 127;     // Center | merkez (Signal lost position | sinyal kesildiğindeki pozisyon)
-  data.yaw = 127;     // Center | merkez (Signal lost position | sinyal kesildiğindeki pozisyon)
-  data.aux1 = 127;    // Center | merkez (Signal lost position | sinyal kesildiğindeki pozisyon)
-  data.aux2 = 127;    // Center | merkez (Signal lost position | sinyal kesildiğindeki pozisyon)
-}
+  data.throttle = 12;   // Motor stop 
+  data.pitch = 127;    // Center
+  data.roll = 127;     // Center
+  data.yaw = 127;     // Center 
+  data.aux1 = 127;    // Center 
+  data.aux2 = 127;    // Center 
   void setup()
 {
   //Start everything up
@@ -30,11 +29,11 @@
   radio.setAutoAck(false);
   radio.setDataRate(RF24_250KBPS);
   radio.setPALevel(RF24_PA_HIGH);
-  radio.stopListening(); //start the radio comunication for Transmitter | Verici olarak sinyal iletişimi başlatılıyor
+  radio.stopListening(); //start the radio comunication for Transmitter
   ResetData();
  
 }
-  // Joystick center and its borders | Joystick merkez ve sınırları
+  // Joystick center and its borders 
   int mapJoystickValues(int val, int lower, int middle, int upper, bool reverse)
 {
   val = constrain(val, lower, upper);
@@ -46,14 +45,12 @@
 }
   void loop()
 {
-  // Control Stick Calibration | Kumanda Kol Kalibrasyonları
-  // Setting may be required for the correct values of the control levers. | :Kontrol kolların doğru değerleri için ayar gerekebilir.
-  data.throttle = mapJoystickValues( analogRead(A0), 12, 524, 1020, true );  // "true" or "false" for signal direction | "true" veya "false" sinyal yönünü belirler
-  data.roll = mapJoystickValues( analogRead(A3), 12, 524, 1020, true );      // "true" or "false" for servo direction | "true" veya "false" servo yönünü belirler
-  data.pitch = mapJoystickValues( analogRead(A2), 12, 524, 1020, false );     // "true" or "false" for servo direction | "true" veya "false" servo yönünü belirler
-  data.yaw = mapJoystickValues( analogRead(A1), 12, 524, 1020, false );       // "true" or "false" for servo direction | "true" veya "false" servo yönünü belirler
-
-  data.aux1 = mapJoystickValues( analogRead(A4), 12, 524, 1020, true );     // "true" or "false" for servo direction | "true" veya "false" servo yönünü belirler
-  data.aux2 = mapJoystickValues( analogRead(A5), 12, 524, 1020, true );     // "true" or "false" for servo direction | "true" veya "false" servo yönünü belirler
-  radio.write(&data, sizeof(Signal));
+  // Control Stick Calibration 
+  // Setting may be required for the correct values of the control levers. .
+  data.throttle = mapJoystickValues( analogRead(A0), 12, 524, 1020, true );  // "true" or "false" for signal direction
+  data.roll = mapJoystickValues( analogRead(A3), 12, 524, 1020, true );      // "true" or "false" for servo direction 
+  data.pitch = mapJoystickValues( analogRead(A2), 12, 524, 1020, false );     // "true" or "false" for servo direction 
+  data.yaw = mapJoystickValues( analogRead(A1), 12, 524, 1020, false );       // "true" or "false" for servo direction 
+  data.aux1 = mapJoystickValues( analogRead(A4), 12, 524, 1020, true );     // "true" or "false" for servo direction 
+  data.aux2 = mapJoystickValues( analogRead(A5), 12, 524, 1020, true );     // "true" or "false" for servo direction 
 }

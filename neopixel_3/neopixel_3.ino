@@ -1,9 +1,9 @@
 #include <Adafruit_NeoPixel.h>
 
-// Which pin on the Arduino is connected to the NeoPixels?
+//pin on the Arduino is connected to the NeoPixels
 #define PIN            6 
 
-// How many NeoPixels are attached to the Arduino?
+// NeoPixels  attached to the Arduino
 #define NUMPIXELS      30
 
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);

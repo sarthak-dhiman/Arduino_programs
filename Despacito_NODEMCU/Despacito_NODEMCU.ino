@@ -1,16 +1,4 @@
- // This is a chiptune on the popular song, Despacito.
 
-// This content is made by Rohan Sardar. Plaese subscribe to the channel "Science and TECHnology" at YouTube from the link ---> https://www.youtube.com/channel/UCqDGhE3GSsj6sVeHQLV50Qw 
-
-// His Hackster io profile is "RohanSardar"
-
-// His Gmail account is rohansardar2015@gmail.com
-
-// Nationality = Indian. From Sonarpur province of South 24 Parganas district. Which is on Kolkata.
-
-// Despacito song
-
-                              // Pin altavoz
                          
 void setup() {
 

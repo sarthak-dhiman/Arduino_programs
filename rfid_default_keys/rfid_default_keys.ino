@@ -1,9 +1,4 @@
-/*
- * http://geek.adachsoft.com
- * 
- * 
- * 
-*/
+
 #include <SPI.h>
 #include <MFRC522.h>
 #include <Servo.h>
@@ -24,7 +19,6 @@ void setup() {
   Serial.begin(115200);
   SPI.begin();
   mfrc522.PCD_Init();
-  Serial.println("For more: http://geek.adachsoft.com");
   Serial.println("Arduino RFID lock");
   Serial.println("");
 
